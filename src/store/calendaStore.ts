@@ -7,7 +7,7 @@ export const useCalendarStore = create<CalendarStore>((set, get) => ({
     currentDay: new Date(),
 
     setCurrentDay: (date: Date) => set({ currentDay: date }),
-    
+
     resetToStartOfDay: () =>
         set((state) => {
             const { currentDay } = state;
@@ -24,6 +24,7 @@ export const useCalendarStore = create<CalendarStore>((set, get) => ({
 
     fetchHolidays: async (year: number, country: string) => {
         const { holidays } = get();
+        console.log('store', holidays);
 
         if (holidays[year]) {
             console.info(`Holidays for year ${year} are already loaded.`);
