@@ -1,7 +1,8 @@
 import { useCurrentDate } from "../hooks/useCurrentDate";
-import { useCalendarStore } from "../store/store";
+import { useCalendarStore } from "../store/calendaStore";
+import { formatDateToKey } from "../utils/dateUtils";
 
-type CalendarDay = {
+export type CalendarDay = {
     date: Date;
     number: number;
     holiday: string | null;
@@ -21,13 +22,6 @@ export const calendarService = () => {
         return startOfCalendar;
     }
 
-    const formatDateToKey = (date: Date): string => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const yearHolidays: string[] = holidays[today.getFullYear()] || {};
     const startOfCalendar = getStartOfCalendar(today);
     const days: CalendarDay[] = [];
@@ -44,7 +38,7 @@ export const calendarService = () => {
             number: currentDate.getDate(),
             holiday,
             currentMonth: currentDate.getMonth() === today.getMonth(),
-            selected: currentDate.toDateString() === today.toDateString()
+            selected: currentDate.toDateString() === today.toDateString(),
         })
     }
 

@@ -7,7 +7,7 @@ export const useCalendarStore = create<CalendarStore>((set, get) => ({
     currentDay: new Date(),
 
     setCurrentDay: (date: Date) => set({ currentDay: date }),
-
+    
     resetToStartOfDay: () =>
         set((state) => {
             const { currentDay } = state;
@@ -41,7 +41,7 @@ export const useCalendarStore = create<CalendarStore>((set, get) => ({
 
             const data = await response.json();
             const parsedHolidays = data.reduce((acc: Record<string, string>, holiday: any) => {
-                acc[holiday.date] = holiday.localName;
+                acc[holiday.date] = holiday.name;
                 return acc;
             }, {});
 

@@ -4,7 +4,7 @@ export const Wrapper = styled.section`
   font-size: 1.5em;
   text-align: center;
   color: #BF4F74;
-  width: 1200px;
+  width: 100%;
   height: 600px;
   display: flex;
   flex-direction: column;

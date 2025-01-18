@@ -1,4 +1,4 @@
-import { useCalendarStore } from '../store/store';
+import { useCalendarStore } from '../store/calendaStore';
 
 export const useCurrentDate = () => {
     const { currentDay } = useCalendarStore();

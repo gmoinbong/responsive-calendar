@@ -10,8 +10,8 @@ export const TableContent = styled.div`
 `;
 
 export const CalendarDay = styled.div<{ $isCurrentMonth: boolean }>`
-    width: 200px;
-    height: 120px;
+    width: 300px;
+    height: 150px;
     position: relative;
     border: 1px solid #a6a6a6;
     background-color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? '#fff' : '#e7e7e7'
@@ -34,7 +34,18 @@ export const Holiday = styled.div`
 
 export const DayNumber = styled.p<{ $isSelected: boolean, $isCurrentMonth: boolean }>`
     position: absolute;
-    right: 10px;
-    color: ${({ $isSelected }) => ($isSelected ? '#c00' : '#000')};
-    color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? '#000' : '#a6a6a6')};
+    left: 10px;
+    color: ${({ $isCurrentMonth: isCurrentMonth }) => (isCurrentMonth ? '#000' : '#a6a6a6')};
+    color: ${({ $isSelected: isSelected }) => (isSelected ? '#ff0000' : '#000')};
 `;
+
+export const TaskTextArea = styled.textarea`
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #00000;
+    width: 90%;
+    height: 40px;
+   border: 2px solid black;
+  border-radius: 4px;
+
+`
