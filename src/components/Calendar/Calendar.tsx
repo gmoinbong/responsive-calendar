@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useCurrentDate } from '../../hooks/useCurrentDate'
 import CalendarDays from './CalendarDays';
-import { useCalendarStore } from '../../store/calendaStore';
 import { CurrentDate, Wrapper } from './Calendar.styles';
+import { useHolidaysStore } from '../../store/holidayStore';
 
 const Calendar: React.FC = () => {
-  const { fetchHolidays } = useCalendarStore()
+  const { fetchHolidays } = useHolidaysStore()
   const currentDate = useCurrentDate();
 
   const currentYear = new Date().getFullYear()

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { useCurrentDate } from "../hooks/useCurrentDate";
-import { useCalendarStore } from "../store/calendaStore";
 import { formatDateToKey } from "../utils/dateUtils";
 import { DAYS_IN_CALENDAR, getStartOfCalendar } from "./constant";
+import { useHolidaysStore } from "../store/holidayStore";
 
 export type CalendarDay = {
     date: Date;
@@ -13,11 +13,11 @@ export type CalendarDay = {
 }
 
 export const calendarService = (): CalendarDay[] => {
-    const { holidays } = useCalendarStore();
+    const { holidays } = useHolidaysStore();
     const { day: today } = useCurrentDate();
 
     const days = useMemo(() => {
-        const yearHolidays: string[] = holidays[today.getFullYear()] || {};
+        const yearHolidays: Record<string, string> = holidays[today.getFullYear()] || {};
         const startOfCalendar = getStartOfCalendar(today);
         const calendarDays: CalendarDay[] = [];
 
@@ -26,7 +26,7 @@ export const calendarService = (): CalendarDay[] => {
             currentDate.setDate(startOfCalendar.getDate() + i);
 
             const dateKey: string = formatDateToKey(currentDate);
-            const holiday = yearHolidays[dateKey as any] || null;
+            const holiday = yearHolidays[dateKey] || null;
 
             calendarDays.push({
                 date: currentDate,
