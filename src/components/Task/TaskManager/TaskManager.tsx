@@ -3,6 +3,7 @@ import { TaskTextArea } from '../../Calendar/CalendarDays/CalendarDays.styles';
 import { formatDateToKey } from '../../../utils/dateUtils';
 import { useTaskStore } from '../../../store/taskStore';
 import { CalendarDay } from '../../../services/calendarService';
+import DayTask from '../TaskDays';
 
 type Props = {
     day: CalendarDay;
@@ -10,18 +11,18 @@ type Props = {
 
 const TaskManager: React.FC<Props> = ({ day }) => {
     const [task, setTask] = useState<{ [key: string]: string }>({});
-    const { addTask, tasks } = useTaskStore();
+    const { addTask } = useTaskStore();
 
-    const handleTaskChange = useCallback((dayDate: Date, value: string) => {
-        const dateKey = formatDateToKey(dayDate);
+    const dateKey = formatDateToKey(day.date);
+
+    const handleTaskChange = useCallback((_dayDate: Date, value: string) => {
         setTask((prevTasks) => ({
             ...prevTasks,
             [dateKey]: value,
         }));
     }, []);
 
-    const handleTaskSubmit = useCallback((dayDate: Date) => {
-        const dateKey = formatDateToKey(dayDate);
+    const handleTaskSubmit = useCallback((_dayDate: Date) => {
         const taskDescription = task[dateKey];
         if (taskDescription?.trim()) {
             addTask(dateKey, taskDescription);
@@ -38,10 +39,6 @@ const TaskManager: React.FC<Props> = ({ day }) => {
         }
     }, [handleTaskSubmit]);
 
-    const getTasksForDay = useCallback((dayDate: string) => tasks[dayDate] || [], [tasks]);
-    const dateKey = formatDateToKey(day.date);
-    const dayTasks = getTasksForDay(dateKey);
-
 
     return (
         <>
@@ -53,11 +50,7 @@ const TaskManager: React.FC<Props> = ({ day }) => {
             <button onClick={() => handleTaskSubmit(day.date)} type="submit">
                 Submit
             </button>
-            <ul>
-                {dayTasks.map((task) => (
-                    <li key={task.id}>{task.description}</li>
-                ))}
-            </ul>
+            <DayTask day={day} />
         </ >
     );
 };
