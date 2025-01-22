@@ -9,9 +9,9 @@ export const TableContent = styled.div`
     box-sizing: border-box;
 `;
 
-export const CalendarDay = styled.div<{ $isCurrentMonth: boolean }>`
-    width: 300px;
-    height: 150px;
+export const CalendarDayComponent = styled.div<{ $isCurrentMonth: boolean }>`
+    width: 400px;
+    height: 250px;
     position: relative;
     border: 1px solid #a6a6a6;
     background-color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? '#fff' : '#e7e7e7'

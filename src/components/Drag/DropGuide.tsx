@@ -15,6 +15,8 @@ const DropGuide: React.FC<DropGuideProps> = ({ as: Component = 'div', dropId, ..
     }
 
     const { drop } = context;
+    // console.log('1 drop', drop, 'dropId', dropId);
+    //drop - index (1Часть) а вторая его часть - dropId (2Часть) это высота в списка или же порядок
 
     return drop === dropId ? <Component {...props} /> : null;
 };

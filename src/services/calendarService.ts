@@ -12,7 +12,7 @@ export type CalendarDay = {
     selected: boolean;
 }
 
-export const calendarService = (): CalendarDay[] => {
+export const useCalendayDays = (): CalendarDay[] => {
     const { holidays } = useHolidaysStore();
     const { day: today } = useCurrentDate();
 

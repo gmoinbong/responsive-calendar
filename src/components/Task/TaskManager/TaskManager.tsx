@@ -3,7 +3,6 @@ import { TaskTextArea } from '../../Calendar/CalendarDays/CalendarDays.styles';
 import { formatDateToKey } from '../../../utils/dateUtils';
 import { useTaskStore } from '../../../store/taskStore';
 import { CalendarDay } from '../../../services/calendarService';
-import DayTask from '../TaskDays';
 
 type Props = {
     day: CalendarDay;
@@ -39,6 +38,7 @@ const TaskManager: React.FC<Props> = ({ day }) => {
         }
     }, [handleTaskSubmit]);
 
+    // console.log('date key', dateKey);
 
     return (
         <>
@@ -47,10 +47,9 @@ const TaskManager: React.FC<Props> = ({ day }) => {
                 onChange={(e) => handleTaskChange(day.date, e.target.value)}
                 value={task[dateKey] || ''}
             />
-            <button onClick={() => handleTaskSubmit(day.date)} type="submit">
+            {/* <button onClick={() => handleTaskSubmit(day.date)} type="submit">
                 Submit
-            </button>
-            <DayTask day={day} />
+            </button> */}
         </ >
     );
 };

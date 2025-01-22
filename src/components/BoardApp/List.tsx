@@ -4,7 +4,7 @@ interface IList {
     children: any;
 }
 
-function List({ name, dragItem, children }: IList) {
+function List({ dragItem, children }: IList) {
     return (
         <div style={{
             borderRadius: '12px',
@@ -18,7 +18,7 @@ function List({ name, dragItem, children }: IList) {
             transform: dragItem ? 'rotate(6deg)' : 'none'
         }}>
             <div style={{ padding: '0.25rem 1.5rem' }}>
-                <h2 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '0.25rem' }}>{name}</h2>
+                {/* <h2 style={{ fontWeight: 'bold', fontSize: '1.25rem', marginBottom: '0.25rem' }}>{name}</h2> */}
             </div>
             {children}
         </div>

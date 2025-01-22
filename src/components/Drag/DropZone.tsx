@@ -7,6 +7,8 @@ type Props = {
     dropType?: any;
     style: any;
     children?: React.ReactNode
+    targetDayKey: string;
+    remember: boolean | undefined;
 };
 
 const DropZone: React.FC<Props> = ({ as: Component = 'div', dropId, dropType, style, children, ...props }) => {

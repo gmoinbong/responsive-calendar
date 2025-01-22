@@ -9,8 +9,9 @@ import { useCursorStyle } from '../../hooks/useCursorStyle';
 type Props = {
     draggable: boolean;
     handleDrop: ({ dragItem, dragType, drop }: any) => void;
-    children: React.ReactNode
-}
+    children: React.ReactNode | ((args: { activeItem: any; activeType: any; isDragging: any }) => React.ReactNode);
+};
+
 
 type ContextValue = null | {
     draggable: boolean;

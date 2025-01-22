@@ -8,6 +8,7 @@ type DropZonesProps = {
     nextId: any;
     split?: 'x' | 'y';
     remember?: boolean;
+    targetDayKey: string;
     children?: React.ReactNode;
     style?: React.CSSProperties;
     [key: string]: any;
@@ -19,17 +20,18 @@ const DropZones: React.FC<DropZonesProps> = ({
     nextId,
     split = 'y',
     remember,
+    targetDayKey,
     children,
     ...props
 }) => {
-
-    const context = useContext(DragContext)
+    const context = useContext(DragContext);
 
     if (!context) {
-        throw new Error('Drag item must be used within a DragProvider')
+        throw new Error('Drag item must be used within a DragProvider');
     }
 
-    const { dragType, isDragging } = context
+    const { dragType, isDragging } = context;
+
 
     return (
         <div style={{ position: 'relative' }} {...props}>
@@ -45,12 +47,14 @@ const DropZones: React.FC<DropZonesProps> = ({
                 >
                     <DropZone
                         dropId={prevId}
+                        targetDayKey={targetDayKey}
                         style={{ width: '100%', height: '100%' }}
                         dropType={dropType}
                         remember={remember}
                     />
                     <DropZone
                         dropId={nextId}
+                        targetDayKey={targetDayKey}
                         style={{ width: '100%', height: '100%' }}
                         dropType={dropType}
                         remember={remember}
