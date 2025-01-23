@@ -5,9 +5,7 @@ type Props = {};
 
 const App: React.FC<Props> = () => {
   return (
-    <>
-      <Calendar />
-    </>
+    <Calendar />
   );
 };
 

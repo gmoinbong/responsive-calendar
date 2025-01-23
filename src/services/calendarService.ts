@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useCurrentDate } from "../hooks/useCurrentDate";
 import { formatDateToKey } from "../utils/dateUtils";
-import { DAYS_IN_CALENDAR, getStartOfCalendar } from "./constant";
+import { DAYS_IN_CALENDAR } from "./constant";
 import { useHolidaysStore } from "../store/holidayStore";
 
 export type CalendarDay = {
@@ -11,6 +11,16 @@ export type CalendarDay = {
     currentMonth: boolean;
     selected: boolean;
 }
+
+
+const getStartOfCalendar = (date: Date): Date => {
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+    const weekdayOfFirstDay = firstDayOfMonth.getDay();
+    const startOfCalendar = new Date(firstDayOfMonth);
+    startOfCalendar.setDate(firstDayOfMonth.getDate() - (weekdayOfFirstDay === 0 ? 7 : weekdayOfFirstDay));
+    return startOfCalendar;
+}
+
 
 export const useCalendayDays = (): CalendarDay[] => {
     const { holidays } = useHolidaysStore();
