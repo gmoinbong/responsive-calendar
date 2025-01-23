@@ -18,6 +18,7 @@ export interface TaskStore {
     removeTask: (date: Date, taskId: number) => void;
     updateTask: (date: Date, taskId: number, description: string) => void;
     moveTask: (fromDate: Date, toDate: Date, targetTaskId: number) => void;
+    moveTaskWithinDay: (date: Date, fromIndex: number, toIndex: number) => void;
 }
 
 export const createKey = (date: Date): TaskKey => {
@@ -109,7 +110,28 @@ export const useTaskStore = create<TaskStore>()(
                         tasks: { ...state.tasks, [toKey]: nextToTasks, [fromKey]: filteredFromTasks }
                     }
                 })
-            }
+            },
+            moveTaskWithinDay(date: Date, fromIndex: number, toIndex: number) {
+                const key = createKey(date);
+
+                set((state) => {
+                    const tasks = state.tasks[key] ?? [];
+
+                    if (fromIndex < 0 || toIndex < 0 || fromIndex >= tasks.length || toIndex >= tasks.length) {
+                        return state;
+                    }
+
+                    const updatedTasks = [...tasks];
+
+                    const [movedTask] = updatedTasks.splice(fromIndex, 1);
+
+                    updatedTasks.splice(toIndex, 0, movedTask);
+
+                    return {
+                        tasks: { ...state.tasks, [key]: updatedTasks },
+                    };
+                });
+            },
         }),
         {
             name: 'task-store',

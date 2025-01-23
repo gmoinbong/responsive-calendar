@@ -32,14 +32,15 @@ const Card: React.FC<Card2Props> = (props) => {
             clearDraggedTask();
         }
     };
+
     return (
         <CalendarDayComponent $isCurrentMonth={day.currentMonth} onDragOver={(e) => e.preventDefault()} onDrop={handleDrop} >
             {formatDateToKey(day.date)}
             {day.holiday && <Holiday>{day.holiday}</Holiday>}
             <AddTask {...props} />
             <TaskCount tasks={tasks} />
-            {tasks?.map((task) => (
-                <Task key={task.id} task={task} day={day} />
+            {tasks?.map((task, index) => (
+                <Task key={task.id} task={task} day={day} index={index} />
             ))}
 
         </CalendarDayComponent>
