@@ -20,7 +20,7 @@ const SearchCard: React.FC<Props> = ({ day, tasks, searchTerm }) => {
                 <CardFiltered  task={task} key={task.id} day={day} />
             ))}
         </div>
-    ); 
+    );
 };
 
 export default SearchCard;
