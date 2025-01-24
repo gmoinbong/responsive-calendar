@@ -5,6 +5,7 @@ export const CalendarWrapper = styled.div`
   margin: 0 auto;
   width: 100%;
   background: #f9f9f9;
+padding: 20px;
 `
 
 export const CurrentDateStyled = styled.h1`
