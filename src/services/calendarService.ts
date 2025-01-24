@@ -22,7 +22,7 @@ const getStartOfCalendar = (date: Date): Date => {
 }
 
 
-export const useCalendayDays = (): CalendarDay[] => {
+export const useCalendarDays = (): CalendarDay[] => {
     const { holidays } = useHolidaysStore();
     const { day: today } = useCurrentDate();
 

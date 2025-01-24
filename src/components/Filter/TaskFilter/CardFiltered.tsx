@@ -3,25 +3,25 @@ import { CalendarDay } from '../../../services/calendarService';
 import { CalendarDayComponent, Holiday } from '../../Calendar/CalendarDays/CalendarDays.styles';
 import { formatDateToKey } from '../../../utils/dateUtils';
 import { TaskValue } from '../../../store/taskStore';
-import TaskFiltered from '../../Tasks/Card/TaskFiltered';
+import Task from '../../Tasks/Task';
 
 
 interface Props {
     day: CalendarDay;
     task: TaskValue;
+    index: number;
 }
 
 const CardFiltered: React.FC<Props> = (props) => {
-    const { day, task } = props;
-
+    const { day, task, index } = props;
 
     return (
         <CalendarDayComponent
             $isCurrentMonth={true}
         >
-            {day.holiday && <Holiday>{day.holiday}</Holiday>}
             {formatDateToKey(day.date)}
-            {<TaskFiltered key={task.id} task={task} day={day} />}
+            {day.holiday && <Holiday>{day.holiday}</Holiday>}
+            <Task draggable={false} key={task.id} task={task} day={day} index={index} />
         </CalendarDayComponent>
     )
 };

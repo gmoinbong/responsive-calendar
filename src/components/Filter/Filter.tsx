@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { useFilterStore } from '../../store/filterStore';
 import { TaskType } from '../../store/taskStore';
+import { FilterWrapper, FilterItem, Checkbox, StyledH1 } from './Filter.styles';
+import { StatusColor } from '../Tasks/Task.styles';
 
-type FilterProps = {};
-
-export const StyledFilter = styled.div``;
-
-const Filter: React.FC<FilterProps> = () => {
+const Filter: React.FC = () => {
   const { setFilterName } = useFilterStore();
   const [filters, setFilters] = useState<TaskType[]>([]);
 
@@ -26,39 +23,38 @@ const Filter: React.FC<FilterProps> = () => {
   }, [filters, setFilterName]);
 
   return (
-    <StyledFilter>
-      <h1>Filter Component</h1>
-      <br />
-      <p>
+    <FilterWrapper>
+      <StyledH1>Filter Tasks</StyledH1>
+      <FilterItem>
+        <StatusColor $statusColor='#61bd4f' />
         in progress:
-        <input
+        <Checkbox
           type="checkbox"
           checked={filters.includes('in_progress')}
           onChange={handleCheckboxChange}
-          title="in_progress"
-        />
-      </p>
-      <br />
-      <p>
+          title="in_progress" />
+      </FilterItem>
+      <FilterItem>
+        <StatusColor $statusColor='#0079bf' />
         done:
-        <input
+        <Checkbox
           type="checkbox"
           checked={filters.includes('done')}
           onChange={handleCheckboxChange}
           title="done"
         />
-      </p>
-      <br />
-      <p>
+      </FilterItem>
+      <FilterItem>
+        <StatusColor $statusColor='#ff9f1a' />
         pending:
-        <input
+        <Checkbox
           type="checkbox"
           checked={filters.includes('pending')}
           onChange={handleCheckboxChange}
           title="pending"
         />
-      </p>
-    </StyledFilter>
+      </FilterItem>
+    </FilterWrapper>
   );
 };
 

@@ -1,51 +1,55 @@
-import React, { useMemo } from 'react'
-import { CalendarDayComponent, Holiday, } from '../../Calendar/CalendarDays/CalendarDays.styles'
-import { CalendarDay } from '../../../services/calendarService'
-import { createKey, useTaskStore } from '../../../store/taskStore'
-import { useDragAndDropStore } from '../../../store/dragAndDropStore'
-import { formatDateToKey } from '../../../utils/dateUtils'
-import AddTask from './AddTask'
-import TaskCount from './TaskCount'
-import Task from '../Task'
+    import React, { useMemo } from 'react'
+    import { CalendarDayComponent, DayHeader, DayNumber, Holiday, } from '../../Calendar/CalendarDays/CalendarDays.styles'
+    import { CalendarDay } from '../../../services/calendarService'
+    import { createKey, useTaskStore } from '../../../store/taskStore'
+    import { useDragAndDropStore } from '../../../store/dragAndDropStore'
+    import { formatDateToDay } from '../../../utils/dateUtils'
+    import TaskCount from './TaskCount'
+    import Task from '../Task'
+    import AddTask from './AddTask'
 
-interface Card2Props {
-    day: CalendarDay
-}
+    interface Card2Props {
+        day: CalendarDay;
 
-const Card: React.FC<Card2Props> = (props) => {
-    const { day } = props;
+    }
 
-    const taskStore = useTaskStore()
+    const Card: React.FC<Card2Props> = (props) => {
+        const { day } = props;
 
-    const dateKey = useMemo(() => createKey(day.date), [day.date])
+        const taskStore = useTaskStore()
 
-    const tasks = taskStore.tasks[dateKey]
+        const dateKey = useMemo(() => createKey(day.date), [day.date])
 
-    const { draggedTaskId, draggedFromDate, clearDraggedTask } = useDragAndDropStore();
+        const tasks = taskStore.tasks[dateKey]
 
-    const handleDrop = (e: React.DragEvent) => {
-        e.preventDefault();
+        const { draggedTaskId, draggedFromDate, clearDraggedTask } = useDragAndDropStore();
 
-        if (draggedTaskId && draggedFromDate) {
-            const fromDate = new Date(draggedFromDate);
-            taskStore.moveTask(fromDate, day.date, draggedTaskId);
-            clearDraggedTask();
-        }
-    };
+        const handleDrop = (e: React.DragEvent) => {
+            e.preventDefault();
 
-    return (
-        <CalendarDayComponent $isCurrentMonth={day.currentMonth} onDragOver={(e) => e.preventDefault()} onDrop={handleDrop} >
-            {formatDateToKey(day.date)}
-            {day.holiday && <Holiday>{day.holiday}</Holiday>}
-            <AddTask {...props} />
-            <TaskCount tasks={tasks} />
-            {tasks?.map((task, index) => (
-                <Task key={task.id} task={task} day={day} index={index} />
-            ))}
+            if (draggedTaskId && draggedFromDate) {
+                const fromDate = new Date(draggedFromDate);
+                taskStore.moveTask(fromDate, day.date, draggedTaskId);
+                clearDraggedTask();
+            }
+        };
 
-        </CalendarDayComponent>
-    )
-}
+        return (
+            <CalendarDayComponent $isCurrentMonth={day.currentMonth} onDragOver={(e) => e.preventDefault()} onDrop={handleDrop} >
+                <DayHeader>
+                    <DayNumber $isCurrentMonth={day.currentMonth}>
+                        {formatDateToDay(day.date)}
+                    </DayNumber>
+                    <TaskCount tasks={tasks} />
+                    {day.holiday && <Holiday>{day.holiday}</Holiday>}
+                </DayHeader>
+                <AddTask {...props} />
+                {tasks?.map((task, index) => (
+                    <Task draggable key={task.id} task={task} day={day} index={index} />
+                ))}
+            </CalendarDayComponent>
+        )
+    }
 
 
-export default Card;
+    export default Card;

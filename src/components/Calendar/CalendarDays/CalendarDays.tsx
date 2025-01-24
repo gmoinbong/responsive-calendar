@@ -1,35 +1,30 @@
-import React, { useEffect } from 'react';
-import { TableContent } from './CalendarDays.styles';
+import type React from "react"
+import { useState } from "react"
+import TaskBoard from "../../Tasks/TaskBoard"
+import Filter from "../../Filter"
+import Search from "../../Search"
+import MonthNavigation from "../../MonthNavigation"
+import { CalendarWrapper, LogicWrapper } from "./CalendarDays.styles"
+import Weekdays from "../Weekdays"
+import CurrentDate from "../CurrentDate"
 
-import TaskBoard from '../../Tasks/TaskBoard';
-import Filter from '../../Filter';
-import { CurrentDate } from '../Calendar.styles';
-import { useCurrentDate } from '../../../hooks/useCurrentDate';
-import { useHolidaysStore } from '../../../store/holidayStore';
 
 const CalendarDays: React.FC = () => {
-  const { fetchHolidays } = useHolidaysStore()
-
-  const currentDate = useCurrentDate();
-  const currentFormattedDate = currentDate.formattedDate
-  const currentYear = new Date().getFullYear()
-
-  useEffect(() => {
-    fetchHolidays(currentYear, "UA")
-  }, [fetchHolidays, currentYear])
-
+  const [searchTerm, setSearchTerm] = useState("")
 
   return (
-    <>
-      <CurrentDate>
-        {currentFormattedDate}
-      </CurrentDate>
-      <Filter />
-      <TableContent>
-        <TaskBoard />
-      </TableContent>
-    </>
-  );
-};
+    <CalendarWrapper>
+      <LogicWrapper>
+        <Filter />
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </LogicWrapper>
+      <CurrentDate />
+      <MonthNavigation />
+      <Weekdays />
+      <TaskBoard searchTerm={searchTerm} />
+    </CalendarWrapper>
+  )
+}
 
-export default CalendarDays;
+export default CalendarDays
+

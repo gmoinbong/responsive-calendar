@@ -3,6 +3,8 @@ export interface CalendarStore {
     currentDay: Date;
     setCurrentDay: (date: Date) => void;
     resetToStartOfDay: () => void;
+    goToNextMonth: () => void;
+    goToPreviousMonth: () => void;
 }
 
 

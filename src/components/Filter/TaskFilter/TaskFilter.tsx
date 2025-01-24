@@ -17,9 +17,6 @@ const TaskFilter: React.FC<Props> = (props) => {
     const dayTimestamp = day.date.getTime();
     const tasksForDay = taskStore.tasks[dayTimestamp] || [];
 
-    console.log('tasksForDay:', tasksForDay);
-    console.log('taskType:', taskType);
-
     const taskByType = tasksForDay.reduce<TasksByType>((map, task) => {
         const key = task.type;
         const tasks = map[key] ?? [];
@@ -31,18 +28,12 @@ const TaskFilter: React.FC<Props> = (props) => {
         };
     }, {} as TasksByType);
 
-    console.log('taskByType:', taskByType);
-
     const filteredTasks = taskType.flatMap((type) => taskByType[type] || []);
-    console.log('filteredTasks:', filteredTasks);
 
     return (
         <>
             {filteredTasks.map((task) => (
-                <div>
-                    {task.type}
-                    <CardFiltered key={task.id} day={day} task={task} />
-                </div>
+                    <CardFiltered index={day.date.getTime()} key={task.id} day={day} task={task} />
             ))}
         </>
     );
