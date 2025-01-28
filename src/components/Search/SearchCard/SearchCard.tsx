@@ -16,8 +16,8 @@ const SearchCard: React.FC<Props> = ({ day, tasks, searchTerm }) => {
 
     return (
         <div>
-            {filteredTasks.map((task) => (
-                <CardFiltered  task={task} key={task.id} day={day} />
+            {filteredTasks.map((task, index) => (
+                <CardFiltered index={index} task={task} key={task.id} day={day} />
             ))}
         </div>
     );

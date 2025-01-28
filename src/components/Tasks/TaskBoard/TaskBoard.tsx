@@ -17,7 +17,7 @@ const TaskBoard: React.FC<TaskBoardProps> = ({ searchTerm }) => {
     const { filterName } = useFilterStore()
     const taskStore = useTaskStore()
 
-    const renderDayContent = (day: CalendarDay ) => {
+    const renderDayContent = (day: CalendarDay) => {
         const tasksForDay = taskStore.tasks[day.date.getTime()] || []
 
         if (searchTerm.length === 0 && filterName.length === 0) {
@@ -39,8 +39,8 @@ const TaskBoard: React.FC<TaskBoardProps> = ({ searchTerm }) => {
 
             return (
                 <div key={day.date.getTime()}>
-                    {filteredTasks.map((task) => (
-                        <CardFiltered  task={task} key={task.id} day={day} />
+                    {filteredTasks.map((task, index) => (
+                        <CardFiltered index={index} task={task} key={task.id} day={day} />
                     ))}
                 </div>
             )
