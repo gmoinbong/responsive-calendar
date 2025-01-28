@@ -9,7 +9,7 @@ import Logo from '../../assets/deleteIcon.svg';
 interface TaskProps {
     task: TaskValue;
     day: CalendarDay;
-    index?: number;
+    index: number;
     draggable: boolean;
 }
 
@@ -27,17 +27,17 @@ const Task: React.FC<TaskProps> = ({ task, day, index, draggable }) => {
             e.dataTransfer.setData("text/plain", index.toString());
     }, [task.id, day.date, index, setDraggedTask]);
 
-    const handleDrop = useCallback((e: React.DragEvent) => {
-        e.preventDefault();
-        const fromIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
-        const toIndex = index;
+    const handleDrop = useCallback(
+        (e: React.DragEvent) => {
+            e.preventDefault();
+            const fromIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
+            const toIndex = index;
 
-        if (!isNaN(fromIndex) && fromIndex !== toIndex) {
-            toIndex &&
-                moveTaskWithinDay(day.date, fromIndex, toIndex);
-        }
-    }, [index, day.date, moveTaskWithinDay]);
 
+            moveTaskWithinDay(day.date, fromIndex, toIndex);
+        },
+        [index, day.date, moveTaskWithinDay]
+    );
     const handleSave = useCallback(() => {
         if (editedDescription.trim()) {
             updateTask(day.date, task.id, editedDescription);
