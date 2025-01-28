@@ -9,7 +9,7 @@ import Task from '../../Tasks/Task';
 interface Props {
     day: CalendarDay;
     task: TaskValue;
-    index?: number;
+    index: number;
 }
 
 const CardFiltered: React.FC<Props> = (props) => {
